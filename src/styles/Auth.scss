@@ -1,0 +1,165 @@
+/* Змінні кольорів */
+$accent-color: #4a90e2;
+$accent-hover: #357abd;
+$success-color: #2e7d32;
+$error-color: #d32f2f;
+$bg-light: #f5f7fa;
+$card-bg: #ffffff;
+$text-main: #333333;
+$text-muted: #666666;
+$border-default: #ccc;
+
+/* Загальні налаштування сторінки */
+body {
+  margin: 0;
+  background-color: $bg-light;
+  font-family: Arial, sans-serif;
+}
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1.25rem;
+}
+
+/* Картка форми */
+.auth-card {
+  background-color: $card-bg;
+  padding: 2.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 25rem; 
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: $text-main;
+  }
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ГРУПА ВВЕДЕННЯ З АБСОЛЮТНИМИ ПОМИЛКАМИ */
+.input-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+  padding-bottom: 1.5rem; 
+
+  label {
+    font-size: 0.875rem;
+    margin-bottom: 0.375rem;
+    color: $text-muted;
+  }
+
+  .auth-input {
+    padding: 0.625rem;
+    font-size: 1rem;
+    border: 0.0625rem solid $border-default;
+    border-radius: 0.25rem;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:focus {
+      border-color: $accent-color;
+    }
+
+  
+    &--error {
+      border-color: $error-color;
+      background-color: rgba($error-color, 0.02);
+      
+      &:focus {
+        box-shadow: 0 0 0 0.125rem rgba($error-color, 0.2);
+      }
+    }
+
+    &--success {
+      border-color: $success-color;
+      background-color: rgba($success-color, 0.02);
+    }
+  }
+
+
+  .error-message {
+    position: absolute;
+    bottom: 0.125rem;
+    left: 0;
+    color: $error-color;
+    font-size: 0.75rem;
+    line-height: 1;
+  }
+}
+
+
+.checkbox-group {
+  position: relative;
+  margin-bottom: 0.5rem;
+  padding-bottom: 1.25rem;
+
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    color: $text-main;
+  }
+
+  .auth-checkbox {
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+  }
+
+  .error-message {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: $error-color;
+    font-size: 0.75rem;
+  }
+}
+
+
+.auth-btn {
+  padding: 0.75rem;
+  font-size: 1rem;
+  background-color: $accent-color;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 0.5rem;
+
+  &:hover {
+    background-color: $accent-hover;
+  }
+}
+
+
+.auth-redirect {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: $text-muted;
+
+  a {
+    color: $accent-color;
+    text-decoration: none;
+    font-weight: bold;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
