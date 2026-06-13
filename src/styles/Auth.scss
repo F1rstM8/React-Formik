@@ -1,227 +1,229 @@
-$bg-blue: #3ea9f5;
-$btn-green: #28d2d0;
-$text-white: #ffffff;
-$error-red: #ff3333;
-$success-green: #4caf50;
+$bg-color: #3ea9f5;
+$btn-color: #28d2d0;
+$text-color: #ffffff;
 $input-bg: #f8f9fa;
-$border-light: #e1e1e1;
+$error-color: #ff3333;
+$success-color: #4caf50;
 
+/* Глобальный сброс для всей страницы */
 body {
   margin: 0;
-  background-color: $bg-blue;
-  font-family: 'Arial', sans-serif;
-  color: $text-white;
+  padding: 0;
+  background-color: $bg-color;
+  font-family: sans-serif;
+  color: $text-color;
+  min-height: 100vh;
 }
 
+/* Главная обертка страницы */
 .auth-page {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem 1rem;
+  padding: 20px;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
-
+/* Шапка с логотипом и кнопкой */
 .auth-header {
   width: 100%;
-  max-width: 65rem;
+  max-width: 1200px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 3rem;
+  padding: 10px 0;
+  margin-bottom: 40px;
 
   .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
+    color: white;
     text-decoration: none;
-    color: $text-white;
+    font-size: 24px;
+    font-weight: bold;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
   }
 
   .switch-btn {
-    padding: 0.5rem 1.5rem;
-    border: 1px solid $text-white;
-    border-radius: 4px;
-    color: $text-white;
+    border: 1px solid white;
+    color: white;
     text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 4px;
     font-weight: bold;
-    transition: background-color 0.2s;
+    transition: background 0.3s;
 
     &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.2);
     }
   }
 }
 
-
-.auth-form-container {
+/* Контейнер самой формы */
+.auth-container {
   width: 100%;
-  max-width: 35rem; 
-  text-align: center;
+  max-width: 450px; /* Ширина для логина */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  &.register-container {
-    max-width: 45rem; 
+  &.wide {
+    max-width: 600px; /* Ширина для регистрации */
   }
 
-  h2 {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
+  h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    text-align: center;
     text-transform: uppercase;
   }
 
-  p.subtitle {
-    margin-bottom: 2rem;
-    font-size: 1rem;
+  .subtitle {
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 14px;
   }
 }
 
 .auth-form {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0; 
 }
 
-
+/* Сетка 2x3 для регистрации */
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0 1.5rem;
-  
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr; 
+  gap: 0 20px;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr; /* В один столбик на узких экранах */
   }
 }
 
-
+/* Инпуты и ошибки */
 .input-group {
   position: relative;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1.2rem; 
-  text-align: left;
+  margin-bottom: 30px; /* Место под ошибку */
+  width: 100%;
 
   .auth-input {
     width: 100%;
-    padding: 1rem;
-    font-size: 1rem;
-    border: 2px solid $text-white;
+    padding: 15px;
+    box-sizing: border-box;
     border-radius: 4px;
+    border: 2px solid transparent;
+    font-size: 16px;
     background-color: $input-bg;
     outline: none;
-    box-sizing: border-box;
-
-    &::placeholder {
-      color: #999;
-    }
 
     &--error {
-      border-color: $error-red;
+      border-color: $error-color;
     }
-
     &--success {
-      border-color: $success-green;
+      border-color: $success-color;
     }
   }
 
   .error-message {
     position: absolute;
-    bottom: 0;
+    bottom: -22px;
     left: 0;
     width: 100%;
-    color: $text-white; 
-    font-size: 0.8rem;
     text-align: center;
-    border: 1px solid $error-red; 
-    padding: 0.1rem 0;
+    color: white;
+    border: 1px solid $error-color; /* Как на макете */
+    font-size: 12px;
+    padding: 2px 0;
+    box-sizing: border-box;
   }
 }
 
-.role-selection {
+/* Кастомные Радио-кнопки */
+.role-group {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  gap: 15px;
+  margin-bottom: 30px;
   position: relative;
-  padding-bottom: 1.5rem;
 
   .role-label {
     display: flex;
     align-items: center;
-    padding: 1rem;
-    border: 2px solid $text-white;
+    border: 1px solid white;
+    padding: 15px;
     cursor: pointer;
-    text-align: left;
-    transition: all 0.2s;
+    transition: background 0.3s;
 
     input[type="radio"] {
-      margin-right: 1rem;
+      margin-right: 15px;
       transform: scale(1.2);
     }
 
     .role-text {
       display: flex;
       flex-direction: column;
-      
-      strong { font-size: 1.1rem; }
-      span { font-size: 0.85rem; margin-top: 0.2rem; }
+
+      strong {
+        font-size: 18px;
+        margin-bottom: 5px;
+      }
+      span {
+        font-size: 12px;
+      }
     }
 
-    
-    &:hover, &:has(input:checked) {
-      background-color: rgba(255, 255, 255, 0.1);
+    &:hover,
+    &:has(input:checked) {
+      background: rgba(255, 255, 255, 0.15);
     }
   }
 
   .error-message {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    color: $error-red;
-    font-size: 0.85rem;
+    bottom: -20px;
+    color: $error-color;
+    font-size: 12px;
   }
 }
 
-
+/* Чекбокс согласия */
 .terms-group {
-  margin-bottom: 1.5rem;
-  font-size: 0.9rem;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 14px;
   position: relative;
-  padding-bottom: 1.2rem;
-  
+
   a {
-    color: $text-white;
+    color: white;
     text-decoration: underline;
   }
 
   .error-message {
     position: absolute;
-    bottom: 0;
-    left: 0;
+    bottom: -20px;
     width: 100%;
-    text-align: center;
-    color: $error-red;
-    font-size: 0.85rem;
+    color: $error-color;
+    font-size: 12px;
   }
 }
 
-
+/* Главная кнопка */
 .auth-btn {
   width: 100%;
-  padding: 1rem;
-  font-size: 1.1rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  background-color: $btn-green;
-  color: $text-white;
+  padding: 15px;
+  background-color: $btn-color;
+  color: white;
   border: none;
   border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background 0.3s;
 
   &:hover {
-    background-color: darken($btn-green, 5%);
+    background-color: darken($btn-color, 10%);
   }
 }

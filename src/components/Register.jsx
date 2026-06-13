@@ -1,112 +1,202 @@
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import { Link } from 'react-router-dom';
-import classNames from 'classnames';
-
-const RegisterSchema = Yup.object().shape({
-  username: Yup.string()
-    .min(3, 'Ім’я занадто коротке')
-    .required('Обов’язкове поле'),
-  email: Yup.string()
-    .email('Некоректний формат email')
-    .required('Обов’язкове поле'),
-  password: Yup.string()
-    .min(6, 'Мінімум 6 символів')
-    .required('Обов’язкове поле'),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Паролі не збігаються')
-    .required('Обов’язкове поле'),
-  acceptTerms: Yup.boolean()
-    .oneOf([true], 'Ви маєте погодитися з умовами використання'),
-});
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { RegisterSchema } from "../utils/validationSchemas";
+import { Link } from "react-router-dom";
+import classNames from "classnames";
 
 const Register = () => {
   return (
-    <div className="auth-card">
-      <h2>Реєстрація</h2>
+    <div className="auth-page">
+      <header className="auth-header">
+        <Link to="/" className="logo">
+          💬 squadhelp
+        </Link>
+        <Link to="/login" className="switch-btn">
+          Login
+        </Link>
+      </header>
 
-      <Formik
-        initialValues={{ username: '', email: '', password: '', confirmPassword: '', acceptTerms: false }}
-        validationSchema={RegisterSchema}
-        onSubmit={(values) => {
-          console.log('Register submitted:', values);
-        }}
-      >
-        {({ errors, touched }) => (
-          <Form className="auth-form">
+      <div className="auth-container wide">
+        <h1>CREATE AN ACCOUNT</h1>
+        <p className="subtitle">
+          We always keep your name and email address private.
+        </p>
 
-            <div className="input-group">
-              <label htmlFor="username">Ім'я користувача</label>
-              <Field
-                type="text"
-                id="username"
-                name="username"
-                className={classNames('auth-input', {
-                  'auth-input--error': errors.username && touched.username,
-                  'auth-input--success': !errors.username && touched.username,
-                })}
-              />
-              <ErrorMessage name="username" component="div" className="error-message" />
-            </div>
+        <Formik
+          initialValues={{
+            firstName: "",
+            lastName: "",
+            displayName: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+            role: "",
+            acceptTerms: false,
+          }}
+          validationSchema={RegisterSchema}
+          onSubmit={(values) => console.log("Register values:", values)}
+        >
+          {({ errors, touched }) => (
+            <Form className="auth-form">
+              <div className="form-grid">
+                <div className="input-group">
+                  <Field
+                    type="text"
+                    name="firstName"
+                    placeholder="First Name"
+                    className={classNames("auth-input", {
+                      "auth-input--error":
+                        errors.firstName && touched.firstName,
+                      "auth-input--success":
+                        !errors.firstName && touched.firstName,
+                    })}
+                  />
+                  <ErrorMessage
+                    name="firstName"
+                    component="div"
+                    className="error-message"
+                  />
+                </div>
 
-            <div className="input-group">
-              <label htmlFor="email">Email</label>
-              <Field
-                type="email"
-                id="email"
-                name="email"
-                className={classNames('auth-input', {
-                  'auth-input--error': errors.email && touched.email,
-                  'auth-input--success': !errors.email && touched.email,
-                })}
-              />
-              <ErrorMessage name="email" component="div" className="error-message" />
-            </div>
+                <div className="input-group">
+                  <Field
+                    type="text"
+                    name="lastName"
+                    placeholder="Last Name"
+                    className={classNames("auth-input", {
+                      "auth-input--error": errors.lastName && touched.lastName,
+                      "auth-input--success":
+                        !errors.lastName && touched.lastName,
+                    })}
+                  />
+                  <ErrorMessage
+                    name="lastName"
+                    component="div"
+                    className="error-message"
+                  />
+                </div>
 
-            <div className="input-group">
-              <label htmlFor="password">Пароль</label>
-              <Field
-                type="password"
-                id="password"
-                name="password"
-                className={classNames('auth-input', {
-                  'auth-input--error': errors.password && touched.password,
-                  'auth-input--success': !errors.password && touched.password,
-                })}
-              />
-              <ErrorMessage name="password" component="div" className="error-message" />
-            </div>
+                <div className="input-group">
+                  <Field
+                    type="text"
+                    name="displayName"
+                    placeholder="Display Name"
+                    className={classNames("auth-input", {
+                      "auth-input--error":
+                        errors.displayName && touched.displayName,
+                      "auth-input--success":
+                        !errors.displayName && touched.displayName,
+                    })}
+                  />
+                  <ErrorMessage
+                    name="displayName"
+                    component="div"
+                    className="error-message"
+                  />
+                </div>
 
-            <div className="input-group">
-              <label htmlFor="confirmPassword">Підтвердження пароля</label>
-              <Field
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                className={classNames('auth-input', {
-                  'auth-input--error': errors.confirmPassword && touched.confirmPassword,
-                  'auth-input--success': !errors.confirmPassword && touched.confirmPassword,
-                })}
-              />
-              <ErrorMessage name="confirmPassword" component="div" className="error-message" />
-            </div>
+                <div className="input-group">
+                  <Field
+                    type="email"
+                    name="email"
+                    placeholder="Email Address"
+                    className={classNames("auth-input", {
+                      "auth-input--error": errors.email && touched.email,
+                      "auth-input--success": !errors.email && touched.email,
+                    })}
+                  />
+                  <ErrorMessage
+                    name="email"
+                    component="div"
+                    className="error-message"
+                  />
+                </div>
 
-            <div className="checkbox-group">
-              <label className="checkbox-label">
-                <Field type="checkbox" name="acceptTerms" className="auth-checkbox" />
-                <span>Я приймаю умови використання</span>
-              </label>
-              <ErrorMessage name="acceptTerms" component="div" className="error-message" />
-            </div>
+                <div className="input-group">
+                  <Field
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    className={classNames("auth-input", {
+                      "auth-input--error": errors.password && touched.password,
+                      "auth-input--success":
+                        !errors.password && touched.password,
+                    })}
+                  />
+                  <ErrorMessage
+                    name="password"
+                    component="div"
+                    className="error-message"
+                  />
+                </div>
 
-            <button type="submit" className="auth-btn">Зареєструватися</button>
-          </Form>
-        )}
-      </Formik>
+                <div className="input-group">
+                  <Field
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="Password Confirmation"
+                    className={classNames("auth-input", {
+                      "auth-input--error":
+                        errors.confirmPassword && touched.confirmPassword,
+                      "auth-input--success":
+                        !errors.confirmPassword && touched.confirmPassword,
+                    })}
+                  />
+                  <ErrorMessage
+                    name="confirmPassword"
+                    component="div"
+                    className="error-message"
+                  />
+                </div>
+              </div>
 
-      <p className="auth-redirect">
-        Вже є акаунт? <Link to="/login">Увійти</Link>
-      </p>
+              <div className="role-group">
+                <label className="role-label">
+                  <Field type="radio" name="role" value="buyer" />
+                  <div className="role-text">
+                    <strong>Join As a Buyer</strong>
+                    <span>
+                      I am looking for a Name, Logo or Tagline for my business,
+                      brand or product.
+                    </span>
+                  </div>
+                </label>
+
+                <label className="role-label">
+                  <Field type="radio" name="role" value="creative" />
+                  <div className="role-text">
+                    <strong>Join As a Creative</strong>
+                    <span>
+                      I plan to submit name ideas, Logo designs or sell names in
+                      Domain Marketplace.
+                    </span>
+                  </div>
+                </label>
+                <ErrorMessage
+                  name="role"
+                  component="div"
+                  className="error-message"
+                />
+              </div>
+
+              <div className="terms-group">
+                <label>
+                  <Field type="checkbox" name="acceptTerms" /> By clicking this
+                  checkbox, you agree to our <a href="#">Terms of Service</a>.
+                </label>
+                <ErrorMessage
+                  name="acceptTerms"
+                  component="div"
+                  className="error-message"
+                />
+              </div>
+
+              <button type="submit" className="auth-btn">
+                Create Account
+              </button>
+            </Form>
+          )}
+        </Formik>
+      </div>
     </div>
   );
 };
