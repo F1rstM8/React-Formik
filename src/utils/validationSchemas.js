@@ -1,16 +1,20 @@
-import * as Yup from 'yup';
+import * as Yup from "yup";
 
+const REQUIRED_MSG = "This field is required";
 
-const nameRule = Yup.string().trim().required('Field is required');
-const emailRule = Yup.string().trim().email('Check email format').required('Email is required');
-const passwordRule = Yup.string().min(6, 'min 6 symbols').required('Password is required');
-
+const nameRule = Yup.string().trim().required(REQUIRED_MSG);
+const emailRule = Yup.string()
+  .trim()
+  .email("Invalid email address")
+  .required(REQUIRED_MSG);
+const passwordRule = Yup.string()
+  .min(6, "Must be at least 6 characters")
+  .required(REQUIRED_MSG);
 
 export const LoginSchema = Yup.object().shape({
   email: emailRule,
   password: passwordRule,
 });
-
 
 export const RegisterSchema = Yup.object().shape({
   firstName: nameRule,
@@ -19,8 +23,11 @@ export const RegisterSchema = Yup.object().shape({
   email: emailRule,
   password: passwordRule,
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'confirmation pass must match password')
-    .required('Confirmation is required'),
-  role: Yup.string().required('Please select a role'),
-  acceptTerms: Yup.boolean().oneOf([true], 'You must agree to the Terms of Service'),
+    .oneOf([Yup.ref("password"), null], "Passwords must match")
+    .required(REQUIRED_MSG),
+  role: Yup.string().required("Please select a role"),
+  acceptTerms: Yup.boolean().oneOf(
+    [true],
+    "You must accept the terms and conditions",
+  ),
 });

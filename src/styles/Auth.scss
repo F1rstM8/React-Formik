@@ -1,3 +1,4 @@
+@use "sass:color";
 $bg-color: #3ea9f5;
 $btn-color: #28d2d0;
 $text-color: #ffffff;
@@ -5,7 +6,6 @@ $input-bg: #f8f9fa;
 $error-color: #ff3333;
 $success-color: #4caf50;
 
-/* Глобальный сброс для всей страницы */
 body {
   margin: 0;
   padding: 0;
@@ -15,7 +15,6 @@ body {
   min-height: 100vh;
 }
 
-/* Главная обертка страницы */
 .auth-page {
   display: flex;
   flex-direction: column;
@@ -25,7 +24,6 @@ body {
   box-sizing: border-box;
 }
 
-/* Шапка с логотипом и кнопкой */
 .auth-header {
   width: 100%;
   max-width: 1200px;
@@ -59,16 +57,15 @@ body {
   }
 }
 
-/* Контейнер самой формы */
 .auth-container {
   width: 100%;
-  max-width: 450px; /* Ширина для логина */
+  max-width: 450px;
   display: flex;
   flex-direction: column;
   align-items: center;
 
   &.wide {
-    max-width: 600px; /* Ширина для регистрации */
+    max-width: 600px;
   }
 
   h1 {
@@ -91,21 +88,19 @@ body {
   flex-direction: column;
 }
 
-/* Сетка 2x3 для регистрации */
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0 20px;
 
   @media (max-width: 600px) {
-    grid-template-columns: 1fr; /* В один столбик на узких экранах */
+    grid-template-columns: 1fr;
   }
 }
 
-/* Инпуты и ошибки */
 .input-group {
   position: relative;
-  margin-bottom: 30px; /* Место под ошибку */
+  margin-bottom: 30px;
   width: 100%;
 
   .auth-input {
@@ -125,22 +120,8 @@ body {
       border-color: $success-color;
     }
   }
-
-  .error-message {
-    position: absolute;
-    bottom: -22px;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    color: white;
-    border: 1px solid $error-color; /* Как на макете */
-    font-size: 12px;
-    padding: 2px 0;
-    box-sizing: border-box;
-  }
 }
 
-/* Кастомные Радио-кнопки */
 .role-group {
   display: flex;
   flex-direction: column;
@@ -179,16 +160,8 @@ body {
       background: rgba(255, 255, 255, 0.15);
     }
   }
-
-  .error-message {
-    position: absolute;
-    bottom: -20px;
-    color: $error-color;
-    font-size: 12px;
-  }
 }
 
-/* Чекбокс согласия */
 .terms-group {
   text-align: center;
   margin-bottom: 20px;
@@ -199,17 +172,8 @@ body {
     color: white;
     text-decoration: underline;
   }
-
-  .error-message {
-    position: absolute;
-    bottom: -20px;
-    width: 100%;
-    color: $error-color;
-    font-size: 12px;
-  }
 }
 
-/* Главная кнопка */
 .auth-btn {
   width: 100%;
   padding: 15px;
@@ -224,6 +188,18 @@ body {
   transition: background 0.3s;
 
   &:hover {
-    background-color: darken($btn-color, 10%);
+   background-color: color.adjust($btn-color, $lightness: -10%);
   }
+}
+
+
+.error-message {
+  position: absolute;
+  bottom: -22px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: $error-color;
+  font-size: 12px;
+  font-weight: bold;
 }
